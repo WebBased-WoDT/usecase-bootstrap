@@ -1,0 +1,104 @@
+---
+version: '3'
+services:
+  wodt-dts-platform:
+    image: ghcr.io/webbased-wodt/wodt-dts-platform:1.1.5
+    container_name: wodt-dts-platform
+    network_mode: host
+    environment:
+      EXPOSED_PORT: ${PLATFORM_EXPOSED_PORT}
+    healthcheck:
+      test: wget http://localhost:${PLATFORM_EXPOSED_PORT}/wodt || exit 1
+      interval: 30s
+      timeout: 10s
+      retries: 5
+      start_period: 5m
+  
+  ambulance-dt:
+    image: ghcr.io/webbased-wodt/adt-ambulance-dt:1.1.5
+    container_name: ambulance-dt
+    network_mode: host
+    environment:
+      SIGNALR_NEGOTIATION_URL: ${AMBULANCE_SIGNALR_NEGOTIATION_URL}
+      SIGNALR_TOPIC_NAME: ${AMBULANCE_SIGNALR_TOPIC_NAME}
+      DIGITAL_TWIN_URI: ${AMBULANCE_DIGITAL_TWIN_URI}
+      EXPOSED_PORT: ${AMBULANCE_EXPOSED_PORT}
+      AZURE_CLIENT_ID: ${AMBULANCE_AZURE_CLIENT_ID}
+      AZURE_TENANT_ID: ${AMBULANCE_AZURE_TENANT_ID}
+      AZURE_CLIENT_SECRET: ${AMBULANCE_AZURE_CLIENT_SECRET}
+      AZURE_DT_ENDPOINT: ${AMBULANCE_AZURE_DT_ENDPOINT}
+      AZURE_DT_ID: ${AMBULANCE_AZURE_DT_ID}
+      PHYSICAL_ASSET_ID: ${AMBULANCE_PHYSICAL_ASSET_ID}
+
+  traffic-light-a:
+    image: ghcr.io/webbased-wodt/usecase-trafficlight-dt:1.0.3
+    container_name: traffic-light-a
+    network_mode: host
+    depends_on:
+      wodt-dts-platform:
+        condition: service_healthy
+    environment:
+      EXPOSED_PORT: ${TRAFFIC_LIGHT_A_EXPOSED_PORT}
+      PHYSICAL_ASSET_ID: ${TRAFFIC_LIGHT_A_PHYSICAL_ASSET_ID}
+      PLATFORM_URL: ${TRAFFIC_LIGH_A_PLATFORM_URL}
+      ORG_GRADLE_PROJECT_ghPackageUsername: ${GITHUB_PACKAGES_USERNAME}
+      ORG_GRADLE_PROJECT_ghPackagesPwd: ${GITHUB_PACKAGES_PASSWORD}
+    healthcheck:
+      test: wget http://localhost:${TRAFFIC_LIGHT_A_EXPOSED_PORT}/dtkg || exit 1
+      interval: 30s
+      timeout: 10s
+      retries: 5
+      start_period: 5m
+
+  traffic-light-b:
+    image: ghcr.io/webbased-wodt/usecase-trafficlight-dt:1.0.3
+    container_name: traffic-light-b
+    network_mode: host
+    depends_on:
+      wodt-dts-platform:
+        condition: service_healthy
+    environment:
+      EXPOSED_PORT: ${TRAFFIC_LIGHT_B_EXPOSED_PORT}
+      PHYSICAL_ASSET_ID: ${TRAFFIC_LIGHT_B_PHYSICAL_ASSET_ID}
+      PLATFORM_URL: ${TRAFFIC_LIGH_B_PLATFORM_URL}
+      ORG_GRADLE_PROJECT_ghPackageUsername: ${GITHUB_PACKAGES_USERNAME}
+      ORG_GRADLE_PROJECT_ghPackagesPwd: ${GITHUB_PACKAGES_PASSWORD}
+    healthcheck:
+      test: wget http://localhost:${TRAFFIC_LIGHT_B_EXPOSED_PORT}/dtkg || exit 1
+      interval: 30s
+      timeout: 10s
+      retries: 5
+      start_period: 5m
+      
+  traffic-light-c:
+    image: ghcr.io/webbased-wodt/usecase-trafficlight-dt:1.0.3
+    container_name: traffic-light-c
+    network_mode: host
+    depends_on:
+      wodt-dts-platform:
+        condition: service_healthy
+    environment:
+      EXPOSED_PORT: ${TRAFFIC_LIGHT_C_EXPOSED_PORT}
+      PHYSICAL_ASSET_ID: ${TRAFFIC_LIGHT_C_PHYSICAL_ASSET_ID}
+      PLATFORM_URL: ${TRAFFIC_LIGHT_C_PLATFORM_URL}
+      ORG_GRADLE_PROJECT_ghPackageUsername: ${GITHUB_PACKAGES_USERNAME}
+      ORG_GRADLE_PROJECT_ghPackagesPwd: ${GITHUB_PACKAGES_PASSWORD}
+
+  intersection-dt:
+    image: ghcr.io/webbased-wodt/usecase-intersection-dt:1.0.3
+    container_name: intersection-dt
+    network_mode: host
+    depends_on:
+      wodt-dts-platform:
+        condition: service_healthy
+      traffic-light-a:
+        condition: service_healthy
+      traffic-light-b:
+        condition: service_healthy
+    environment:
+      EXPOSED_PORT: ${INTERSECTION_EXPOSED_PORT}
+      TRAFFIC_LIGHT_A_URI: ${TRAFFIC_LIGHT_A_URI}
+      TRAFFIC_LIGHT_B_URI: ${TRAFFIC_LIGHT_B_URI}
+      PLATFORM_URL: ${INTERSECTION_PLATFORM_URL}
+      ORG_GRADLE_PROJECT_ghPackageUsername: ${GITHUB_PACKAGES_USERNAME}
+      ORG_GRADLE_PROJECT_ghPackagesPwd: ${GITHUB_PACKAGES_PASSWORD}
