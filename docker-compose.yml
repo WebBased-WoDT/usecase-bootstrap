@@ -2,7 +2,7 @@
 version: '3'
 services:
   wodt-dts-platform:
-    image: ghcr.io/webbased-wodt/wodt-dts-platform:1.1.11
+    image: ghcr.io/webbased-wodt/wodt-dts-platform:1.1.12
     container_name: wodt-dts-platform
     network_mode: host
     environment:
