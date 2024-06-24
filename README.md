@@ -4,6 +4,10 @@
 
 The bootstrap of the usecase that allows to deploy the WoDT Digital Twins Platform and the involved WoDT Digital Twins.
 
+![use case schema](./use-case-schema.jpg "Use case schema")
+<sub><sup>_images from [https://www.flaticon.com/](https://www.flaticon.com/)_<sub><sup>
+
+
 ## Prerequisites
 - Make sure you have a running and active version of *Docker* and *docker-compose*.
 
