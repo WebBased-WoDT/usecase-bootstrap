@@ -2,7 +2,7 @@
 
 [![License: Apache License](https://img.shields.io/badge/License-Apache_License_2.0-yellow.svg)](https://www.apache.org/licenses/LICENSE-2.0)
 
-The bootstrap of the usecase that allows to deploy the WoDT Platform and the involved HWoDT-compliant Digital Twins.
+The bootstrap of the usecase that allows to deploy the WoDT Platform and the involved HWoDT-compliant Digital Twins. The scenario is about controlling traffic lights in a city to create a "green-route" for the ambulance.
 
 ![use case schema](./use-case-schema.jpg "Use case schema")
 <sub><sup>_images from [https://www.flaticon.com/](https://www.flaticon.com/)_<sub><sup>
@@ -44,3 +44,24 @@ The bootstrap of the usecase that allows to deploy the WoDT Platform and the inv
    ```bash
    docker-compose up -d
    ```
+
+### A possible journey
+1. Start observing the Platform KG of the Smart City WoDT Platform;
+2. Retrieve the ambulance DT DTD;
+3. Add the ambulance DT to the Platform to include it in the Smart City DT ecosystem;
+4. Create the relationship between the ambulance DT and the intersection DT (to simulate an ambulance approaching an intersection) -- how relationships are managed in Azure-based DT is described in the ambulance DT [repository](https://github.com/WebBased-WoDT/adt-ambulance-dt?tab=readme-ov-file#usage-notes);
+   - now you should notice an update in the Platform KG
+5. Perform the following SPARQL query on the Smart City Platform to understand which traffic lights are interested and their available actions;
+   ```sparql
+        PREFIX smc: <https://smartcityontology.com/ontology#>
+        PREFIX wodt: <https://purl.org/wodt/>
+        
+        SELECT ?trafficLight ?availableAction
+        WHERE {
+            <ambulance cached uri> smc:isApproaching ?intersection .
+            ?intersection smc:containsTrafficLight ?trafficLight .
+            ?trafficLight wodt:availableActionId ?availableAction .
+        }
+   ```
+6. Obtain the DTD of the involved traffic lights to understand how to invoke actions;
+7. Invoke the preferred and available action based on your logic.
