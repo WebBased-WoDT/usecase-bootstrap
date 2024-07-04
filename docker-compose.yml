@@ -15,7 +15,7 @@ services:
       start_period: 5m
   
   ambulance-dt:
-    image: ghcr.io/webbased-wodt/adt-ambulance-dt:1.1.12
+    image: ghcr.io/webbased-wodt/adt-ambulance-dt:1.1.13
     container_name: ambulance-dt
     network_mode: host
     environment:
