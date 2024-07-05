@@ -47,11 +47,12 @@ The bootstrap of the usecase that allows to deploy the WoDT Platform and the inv
 
 ### A possible journey
 1. Start observing the Platform KG of the Smart City WoDT Platform;
-2. Retrieve the ambulance DT DTD;
-3. Add the ambulance DT to the Platform to include it in the Smart City DT ecosystem;
-4. Create the relationship between the ambulance DT and the intersection DT (to simulate an ambulance approaching an intersection) -- how relationships are managed in Azure-based DT is described in the ambulance DT [repository](https://github.com/WebBased-WoDT/adt-ambulance-dt?tab=readme-ov-file#usage-notes);
+2. Retrive the DTD and play with the `switch` action of the traffic light A and B <sub><sup>*(this allow to send the traffic lights current status to the platform)*</sub></sup>;
+3. Retrieve the ambulance DT DTD;
+4. Add the ambulance DT to the Platform to include it in the Smart City DT ecosystem;
+5. Create the relationship between the ambulance DT and the intersection DT (to simulate an ambulance approaching an intersection) -- how relationships are managed in Azure-based DT is described in the ambulance DT [repository](https://github.com/WebBased-WoDT/adt-ambulance-dt?tab=readme-ov-file#usage-notes);
    - now you should notice an update in the Platform KG
-5. Perform the following SPARQL query on the Smart City Platform to understand which traffic lights are interested and their available actions;
+6. Perform the following SPARQL query on the Smart City Platform to understand which traffic lights are interested and their available actions;
    ```sparql
         PREFIX smc: <https://smartcityontology.com/ontology#>
         PREFIX wodt: <https://purl.org/wodt/>
@@ -63,5 +64,5 @@ The bootstrap of the usecase that allows to deploy the WoDT Platform and the inv
             ?trafficLight wodt:availableActionId ?availableAction .
         }
    ```
-6. Obtain the DTD of the involved traffic lights to understand how to invoke actions;
-7. Invoke the preferred and available action based on your logic.
+7. Obtain the DTD of the involved traffic lights to understand how to invoke actions;
+8. Invoke the preferred and available action based on your logic.
