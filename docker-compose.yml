@@ -85,7 +85,7 @@ services:
       ORG_GRADLE_PROJECT_ghPackagesPwd: ${GITHUB_PACKAGES_PASSWORD}
 
   intersection-dt:
-    image: ghcr.io/webbased-wodt/usecase-intersection-dt:1.0.3
+    image: ghcr.io/webbased-wodt/usecase-intersection-dt:1.0.4
     container_name: intersection-dt
     network_mode: host
     depends_on:
