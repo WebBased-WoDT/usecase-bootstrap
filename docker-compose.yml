@@ -31,7 +31,7 @@ services:
       PHYSICAL_ASSET_ID: ${AMBULANCE_PHYSICAL_ASSET_ID}
 
   traffic-light-a:
-    image: ghcr.io/webbased-wodt/usecase-trafficlight-dt:1.1.1
+    image: ghcr.io/webbased-wodt/usecase-trafficlight-dt:1.1.2
     container_name: traffic-light-a
     network_mode: host
     depends_on:
@@ -51,7 +51,7 @@ services:
       start_period: 5m
 
   traffic-light-b:
-    image: ghcr.io/webbased-wodt/usecase-trafficlight-dt:1.1.1
+    image: ghcr.io/webbased-wodt/usecase-trafficlight-dt:1.1.2
     container_name: traffic-light-b
     network_mode: host
     depends_on:
@@ -71,7 +71,7 @@ services:
       start_period: 5m
       
   traffic-light-c:
-    image: ghcr.io/webbased-wodt/usecase-trafficlight-dt:1.1.1
+    image: ghcr.io/webbased-wodt/usecase-trafficlight-dt:1.1.2
     container_name: traffic-light-c
     network_mode: host
     depends_on:
@@ -85,7 +85,7 @@ services:
       ORG_GRADLE_PROJECT_ghPackagesPwd: ${GITHUB_PACKAGES_PASSWORD}
 
   intersection-dt:
-    image: ghcr.io/webbased-wodt/usecase-intersection-dt:1.0.4
+    image: ghcr.io/webbased-wodt/usecase-intersection-dt:1.0.5
     container_name: intersection-dt
     network_mode: host
     depends_on:
@@ -100,5 +100,5 @@ services:
       TRAFFIC_LIGHT_A_URI: ${TRAFFIC_LIGHT_A_URI}
       TRAFFIC_LIGHT_B_URI: ${TRAFFIC_LIGHT_B_URI}
       PLATFORM_URL: ${INTERSECTION_PLATFORM_URL}
-      ORG_GRADLE_PROJECT_ghPackageUsername: ${GITHUB_PACKAGES_USERNAME}
+      ORG_GRADLE_PROJECT_ghPackagesUsername: ${GITHUB_PACKAGES_USERNAME}
       ORG_GRADLE_PROJECT_ghPackagesPwd: ${GITHUB_PACKAGES_PASSWORD}
